@@ -12,7 +12,7 @@ public class Viewer {
         canvas = new Canvas(model);
 
         JFrame frame = new JFrame("FarCry V2.1");
-        frame.setSize(660,680);
+        frame.setSize(670,700);
         frame.setLocation(200,0);
         frame.add("Center",canvas);
         frame.setVisible(true);
