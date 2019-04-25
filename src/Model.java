@@ -6,13 +6,16 @@ public class Model {
     int indexX;
     int indexY;
 
+    int checkX;
+    int checkY;
+
     Model(Viewer viewer){
         this.viewer = viewer;
 
         desktop = new int[10][10];
 
         indexX = 1;
-        indexY = 2;
+        indexY = 1;
 
         initArray(indexX,indexY);
 
@@ -33,7 +36,9 @@ public class Model {
     }
 
     private void moveUp(){
-        if (indexX>0){
+
+
+        if (indexX>0 && check((checkX=indexX-1),indexY)){
             desktop[indexX][indexY]=0;
             indexX--;
             desktop[indexX][indexY]=1;
@@ -41,7 +46,7 @@ public class Model {
     }
 
     private void moveRight(){
-        if (indexY<(desktop[indexX].length-1)){
+        if (indexY<(desktop[indexX].length-1) && check(indexX,(checkY=indexY+1))){
             desktop[indexX][indexY]=0;
             indexY++;
             desktop[indexX][indexY]=1;
@@ -49,7 +54,7 @@ public class Model {
     }
 
     private void moveDown(){
-        if (indexX<(desktop[indexY].length-1)){
+        if (indexX<(desktop[indexY].length-1) && check((checkX=indexX+1),indexY)){
             desktop[indexX][indexY]=0;
             indexX++;
             desktop[indexX][indexY]=1;
@@ -57,15 +62,37 @@ public class Model {
     }
 
     private void moveLeft(){
-        if (indexY>0){
+        if (indexY>0 && check(indexX,(checkY=indexY-1))){
             desktop[indexX][indexY]=0;
             indexY--;
             desktop[indexX][indexY]=1;
         }
     }
 
+    private boolean check(int x2, int y2){
+        if (desktop[x2][y2]==2){
+            return  false;
+        }else{
+            return true;
+        }
+    }
+
     private void initArray(int x,int y){
         desktop[x][y]=1;
+        desktop[3][3]=2;
+        desktop[3][5]=2;
+        desktop[3][6]=2;
+        desktop[3][7]=2;
+        desktop[4][3]=2;
+        desktop[5][3]=2;
+        desktop[6][3]=2;
+        desktop[6][4]=2;
+        desktop[6][5]=2;
+        //desktop[6][6]=2;
+        desktop[6][7]=2;
+        desktop[4][7]=2;
+        desktop[5][7]=2;
+        //desktop[7][6]=2;
         //printArray();
     }
 

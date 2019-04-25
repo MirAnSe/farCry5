@@ -11,7 +11,7 @@ public class Viewer {
         Model model = controller.getModel();
         canvas = new Canvas(model);
 
-        JFrame frame = new JFrame("FarCry V2.0");
+        JFrame frame = new JFrame("FarCry V2.1");
         frame.setSize(660,680);
         frame.setLocation(200,0);
         frame.add("Center",canvas);
