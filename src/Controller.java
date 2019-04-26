@@ -3,7 +3,7 @@ import java.awt.event.KeyEvent;
 
 public class Controller implements KeyListener {
     private Model model;
-
+    int direction=0;
     Controller(Viewer viewer){
         model = new Model(viewer);
     }
@@ -20,39 +20,31 @@ public class Controller implements KeyListener {
         int keyCode = event.getKeyCode();
         //System.out.println(keyCode);
 
-        String direction = "";
+
         switch (keyCode){
             case 38:
-                direction = "Up";
-            break;
-
+                direction = 1;
+                break;
             case 87:
-                direction = "Up";
-            break;
-
+                direction = 1;
+                break;
             case 39:
-                direction = "Right";
-            break;
-
+                direction = 2;
+                break;
             case 68:
-                direction = "Right";
-            break;
-
+                direction = 2;
+                break;
             case 40:
-                direction = "Down";
-            break;
-
+                direction = 3;
+                break;
             case 83:
-
-                direction = "Down";
-            break;
-
+                direction = 3;
+                break;
             case 37:
-                direction = "Left";
-            break;
-
+                direction = 4;
+                break;
             case 65:
-                direction = "Left";
+                direction = 4;
             break;
         }
         model.move(direction);

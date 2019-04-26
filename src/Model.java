@@ -3,15 +3,9 @@ public class Model {
     private Viewer viewer;
 
     int [][] desktop;
-    int indexX;
-    int indexY;
+    int indexX,indexY;
 
-    int checkX;
-    int checkY;
-
-    int checkBox;
-
-    int directionImage=0;
+    //int directionImage=0;
 
     Model(Viewer viewer){
         this.viewer = viewer;
@@ -22,98 +16,46 @@ public class Model {
         indexY = 0;
 
         initArray(indexX,indexY);
-
     }
 
-    public void move(String direction){
-        if (direction.equals("Up")){
-            moveUp();
-        }else if(direction.equals("Right")){
-            moveRight();
-        }else if(direction.equals("Down")){
-            moveDown();
-        }else if(direction.equals("Left")){
-            moveLeft();
+    public void move(int direction){
+        switch (direction){
+            case 1:
+                move(indexX-1,indexX-2,indexY,indexY);
+                break;
+            case 2:
+                move(indexX,indexX,indexY+1,indexY+2);
+                break;
+            case 3:
+                move(indexX+1,indexX+2,indexY,indexY);
+                break;
+            case 4:
+                move(indexX,indexX,indexY-1,indexY-2);
+                break;
         }
         //printArray();
         viewer.update();
     }
 
-    private void moveUp(){
-        if (indexX>0 && check((checkX=indexX-1),indexY)){
-            desktop[indexX][indexY]=0;
-            indexX--;
-            desktop[indexX][indexY]=1;
-        }
-        directionImage = 2;
-    }
-
-    private void moveRight(){
-        /*if (checkBox(indexX,(checkBox=indexY+1))){
-            desktop[indexX][checkBox]=0;
-            desktop[indexX][checkBox+1]=3;
-        }
-
-
-        if (indexY<(desktop[indexX].length-1) && check(indexX,checkY=indexY+1)){
-            desktop[indexX][indexY]=0;
-            indexY++;
-            desktop[indexX][indexY]=1;
-        }*/
-
-        if (desktop[indexX][indexY + 1] ==3 && indexY+1 < desktop[indexX].length){
-            if(desktop[indexX][indexY + 2]==0){
-                desktop[indexX][indexY+1]=0;
-                desktop[indexX][indexY+2]=3;
+    private void move(int xx, int xx1, int yy, int yy1){
+      if (yy1 < desktop[indexX].length && xx1 < desktop.length && xx1 > -1 && yy1 > -1 && desktop[xx][yy] ==3){
+            if(desktop[xx1][yy1]==0){
+                desktop[xx][yy]=0;
+                desktop[xx1][yy1]=3;
             }
         }
 
-        if (desktop[indexX][indexY+1]==0 && indexY+1< desktop[indexX].length){
+        if (yy < desktop[indexX].length && xx < desktop.length && xx > -1 && yy > -1 && desktop[xx][yy]==0){
             desktop[indexX][indexY]=0;
-            desktop[indexX][indexY+1]=1;
-            indexY++;
+            desktop[xx][yy]=1;
+            indexY=yy;
+            indexX=xx;
         }
 
-        directionImage = 4;
+        //directionImage = dir;
+        //printArray();
+        //System.out.println(xx1+" - "+yy1+"   "+xx+" - "+yy);
     }
-
-    private void moveDown(){
-        if (indexX<(desktop[indexY].length-1) && check((checkX=indexX+1),indexY)){
-            desktop[indexX][indexY]=0;
-            indexX++;
-            desktop[indexX][indexY]=1;
-        }
-        directionImage = 1;
-    }
-
-    private void moveLeft(){
-        if (indexY>0 && check(indexX,(checkY=indexY-1))){
-            desktop[indexX][indexY]=0;
-            indexY--;
-            desktop[indexX][indexY]=1;
-        }
-        directionImage = 3;
-    }
-
-    private boolean check(int x2, int y2){
-        if (desktop[x2][y2]==2){
-            return  false;
-        }else{
-            return true;
-        }
-    }
-
-    private boolean checkBox(int x2, int y2){
-        if (desktop[x2][y2]==3){
-            return  true;
-        }else{
-            return false;
-        }
-    }
-/*
-    private boolean checkWall(int x3, int y3){
-        //if (desktop)
-    }*/
 
     private void initArray(int x,int y){
         desktop[x][y]=1;
@@ -122,7 +64,7 @@ public class Model {
         desktop[3][6]=2;
         desktop[3][7]=2;
         desktop[4][3]=2;
-        desktop[5][3]=2;
+        //desktop[5][3]=2;
         desktop[6][3]=2;
         desktop[6][4]=2;
         desktop[6][5]=2;
@@ -143,6 +85,7 @@ public class Model {
             }
             System.out.println();
         }
-        System.out.println();System.out.println();
+        //System.out.println();
+       // System.out.println("X - "+indexX+"    Y - "+indexY+"     wid"+desktop[0].length+" Hei"+desktop.length);
     }
 }
