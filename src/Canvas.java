@@ -66,7 +66,12 @@ public class Canvas extends JPanel{
 
         for (int i=0;i<model.desktop.length;i++){
             for(int j=0;j<model.desktop[i].length;j++){
-                if (model.desktop[i][j]==1){
+                if (model.desktop[i][j] == 1 || model.desktop[i][j] == 6){
+                    if(model.desktop[i][j] == 6){
+                        pen.setColor(Color.yellow);
+                        pen.fillRect(x,y,width,height);
+                    }
+
                     switch (controller.direction){
                         case 0:
                             pen.drawImage(imageHero,x,y,null);
@@ -106,9 +111,13 @@ public class Canvas extends JPanel{
                     pen.drawImage(imageWall,x,y,null);
                 }else if (model.desktop[i][j]==3){
                     pen.drawImage(imageBox,x,y,null);
-                }else{
-                    /*pen.setColor(Color.black);
-                    pen.drawRect(x,y,width,height);*/
+                }else if(model.desktop[i][j]==4){
+                    pen.setColor(Color.yellow);
+                    pen.fillRect(x,y,width,height);
+                }else if(model.desktop[i][j]==5){
+                    pen.setColor(Color.yellow);
+                    pen.fillRect(x,y,width,height);
+                    pen.drawImage(imageBox,x,y,null);
                 }
                 x=x+width+offset;
             }
