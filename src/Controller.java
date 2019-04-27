@@ -46,7 +46,11 @@ public class Controller implements KeyListener {
             case 65:
                 direction = 4;
             break;
+            case 8:
+                direction = 5;
+                break;
         }
+        //model.backup=model.desktop;
         model.move(direction);
     }
 
