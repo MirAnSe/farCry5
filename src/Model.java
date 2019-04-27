@@ -5,6 +5,7 @@ public class Model {
     int [][] desktop;
     int [][] backup;
     int indexX,indexY,indexXbackup,indexYbackup;
+    private int indexXstart,indexYstart;
     boolean stopProgramm = true;
 
     //int directionImage=0;
@@ -12,17 +13,20 @@ public class Model {
     Model(Viewer viewer){
         this.viewer = viewer;
 
-        desktop = new int[13][13];
-        backup = new int[13][13];
+        indexXstart = 5;
+        indexYstart = 1;
 
-        indexX = 5;
-        indexY = 1;
+
 /*
         indexXbackup = indexX;
         indexYbackup = indexY;
 */
 
-        initArray(indexX,indexY);
+        initArray();
+    }
+
+    public void arrayInit(){
+        initArray();
     }
 
     public void move(int direction){
@@ -43,23 +47,18 @@ public class Model {
                         move(indexX, indexX, indexY - 1, indexY - 2);
                         break;
                 }
-                printArray();
+                //printArray();
                 viewer.update();
             }
         }else if(direction==5){
             backup((byte)0);
             indexX=indexXbackup;
             indexY=indexYbackup;
-            stopProgramm=false;
+            stopProgramm=true;
             viewer.update();
-            /*System.out.println("backup");
-            //printArray();
-            desktop=backup;
 
-
-
-            viewer.update();*/
-
+        }else {
+            //viewer.update();
         }
     }
 
@@ -115,11 +114,19 @@ public class Model {
 
         //directionImage = dir;
         //printArray();
-        System.out.println(xx1+" - "+yy1+"   "+xx+" - "+yy);
+        //System.out.println(xx1+" - "+yy1+"   "+xx+" - "+yy);
     }
 
-    private void initArray(int x,int y){
-        desktop[x][y]=1;
+    private void initArray(){
+
+        indexX = indexXstart;
+        indexY = indexYstart;
+
+        desktop = new int[13][13];
+        backup = new int[13][13];
+
+
+        desktop[indexX][indexY]=1;
 
         desktop[0][10]=2;
 
@@ -186,7 +193,7 @@ public class Model {
 
         desktop[5][3]=4;
         desktop[5][5]=4;
-        System.out.println("initArray");
+        //System.out.println("initArray");
         //desktop[0][1]=2;
         //desktop[7][6]=2;
         //printArray();
@@ -210,9 +217,9 @@ public class Model {
     }
 
     private void printArray(){
-        for(int i=0; i< backup.length;i++){
-            for(int j=0;j<backup[i].length;j++){
-                System.out.print(backup[i][j]+" ");
+        for(int i=0; i< desktop.length;i++){
+            for(int j=0;j<desktop[i].length;j++){
+                System.out.print(desktop[i][j]+" ");
             }
             System.out.println();
         }

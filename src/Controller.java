@@ -49,8 +49,13 @@ public class Controller implements KeyListener {
             case 8:
                 direction = 5;
                 break;
+            case 82:
+                model.arrayInit();
+                direction = 0;
+                break;
         }
         //model.backup=model.desktop;
+        //System.out.println(keyCode);
         model.move(direction);
     }
 
