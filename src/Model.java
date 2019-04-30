@@ -1,11 +1,12 @@
 public class Model {
 
     private Viewer viewer;
+    private Lvls lvls = new Lvls();
 
     int [][] desktop;
     int [][] backup;
     int indexX,indexY,indexXbackup,indexYbackup;
-    private int indexXstart,indexYstart;
+    //private int indexXstart,indexYstart;
     boolean stopProgramm = true;
 
     //int directionImage=0;
@@ -13,8 +14,8 @@ public class Model {
     Model(Viewer viewer){
         this.viewer = viewer;
 
-        indexXstart = 5;
-        indexYstart = 1;
+        //indexXstart = 5;
+        //indexYstart = 1;
 
 
 /*
@@ -119,6 +120,20 @@ public class Model {
 
     private void initArray(){
 
+        desktop=lvls.returnLvl(0);
+        backup = new int[desktop.length][desktop[0].length];
+
+        auca: for(int i=0;i < desktop.length;i++){
+            for(int j=0;j<desktop[i].length;j++){
+                if (desktop[i][j]==1){
+                    indexX=i;
+                    indexY=j;
+
+                    break auca;
+                }
+            }
+        }
+/*
         indexX = indexXstart;
         indexY = indexYstart;
 
@@ -192,12 +207,13 @@ public class Model {
         desktop[5][2]=3;
 
         desktop[5][3]=4;
-        desktop[5][5]=4;
+        desktop[5][5]=4;*/
         //System.out.println("initArray");
         //desktop[0][1]=2;
         //desktop[7][6]=2;
         //printArray();
         //backup=desktop;
+
     }
 
     private void backup(byte action){
