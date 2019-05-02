@@ -13,11 +13,14 @@ public class Canvas extends JPanel{
     private Image imageHeroDawn, imageHeroUp, imageHeroLeft, imageHeroRight, imageBox,imageLogo;
 
     private Controller controller;
+
+    private Reset reset;
     //private int sleep = 10;
 
     Canvas(Model model,Controller controller, int widthWindows){
         this.model=model;
         this.controller=controller;
+        reset = model.getMyButton();
         //this.widthWindows=widthWindows;
 
         File fileNameHero = new File("src/image/HeroV2.png");
@@ -46,10 +49,15 @@ public class Canvas extends JPanel{
 
         this.widthWindows=widthWindows-imageLogo.getWidth(null);
     }
+
+    public int getLogoHeight(){
+        return imageLogo.getWidth(null);
+    }
     //System.out.println(imageLogo.getWidth(null));
 
     public void paint(Graphics pen){
         super.paint(pen);
+        //draw
 
         boolean win = true;
         int start=5;
@@ -91,24 +99,11 @@ public class Canvas extends JPanel{
                             break;
                     }
 
-                    /*if (model.directionImage==3){
-                        pen.drawImage(imageHeroDawn,x,y,null);
-                    }else if(model.directionImage==0){
-                        pen.drawImage(imageHero,x,y,null);
-                    }else if(model.directionImage==1){
-                        pen.drawImage(imageHeroUp,x,y,null);
-                    }else if(model.directionImage==4){
-                        pen.drawImage(imageHeroLeft,x,y,null);
-                    }else if(model.directionImage==2){
-                        pen.drawImage(imageHeroRight,x,y,null);
-                    }*/
-
                 }else if(model.desktop[i][j]==2){
-                    /*pen.setColor(Color.red);
+                    pen.setColor(Color.red);
                     pen.fillRect(x,y,width,height);
                     pen.setColor(Color.black);
                     pen.drawRect(x,y,width,height);
-                    */
                     pen.drawImage(imageWall,x,y,null);
                 }else if (model.desktop[i][j]==3){
                     pen.drawImage(imageBox,x,y,null);
@@ -128,10 +123,12 @@ public class Canvas extends JPanel{
         }
 
         if (win){
-            pen.setFont(new Font ("console", Font.PLAIN,30));
-            pen.setColor(Color.red);
-            pen.drawString("You WON!!!",200,50);
-            model.stopProgramm=false;
+            model.nextLvl();
+
+            //pen.setFont(new Font ("console", Font.PLAIN,30));
+            //pen.setColor(Color.red);
+            //pen.drawString("You WON!!!",200,50);
+            //model.stopProgramm=false;
             //System.out.println(win);
         }
 

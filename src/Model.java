@@ -2,6 +2,10 @@ public class Model {
 
     private Viewer viewer;
     private Lvls lvls = new Lvls();
+    private int initLvl = 0;
+
+    private Reset buttonReset;
+
 
     int [][] desktop;
     int [][] backup;
@@ -14,6 +18,8 @@ public class Model {
     Model(Viewer viewer){
         this.viewer = viewer;
 
+
+        buttonReset = new Reset(0,0,150,100);
         //indexXstart = 5;
         //indexYstart = 1;
 
@@ -120,7 +126,7 @@ public class Model {
 
     private void initArray(){
 
-        desktop=lvls.returnLvl(0);
+        desktop=lvls.returnLvl(initLvl);
         backup = new int[desktop.length][desktop[0].length];
 
         auca: for(int i=0;i < desktop.length;i++){
@@ -133,87 +139,14 @@ public class Model {
                 }
             }
         }
-/*
-        indexX = indexXstart;
-        indexY = indexYstart;
+        printArray();
+    }
 
-        desktop = new int[13][13];
-        backup = new int[13][13];
-
-
-        desktop[indexX][indexY]=1;
-
-        desktop[0][10]=2;
-
-        //desktop[1][6]=2;
-        desktop[1][10]=2;
-        //desktop[1][12]=2;
-
-        desktop[2][0]=2;
-        desktop[2][1]=2;
-        desktop[2][2]=2;
-        desktop[2][3]=2;
-        desktop[2][6]=2;
-        desktop[2][10]=2;
-        //desktop[2][12]=2;
-
-        desktop[3][2]=2;
-        desktop[3][3]=2;
-        desktop[3][5]=2;
-        desktop[3][6]=2;
-        desktop[3][7]=2;
-       // desktop[3][8]=2;
-        desktop[3][9]=2;
-        //desktop[3][11]=2;
-       // desktop[3][12]=2;
-
-        desktop[4][3]=2;
-        desktop[4][7]=2;
-        //desktop[4][11]=2;
-
-        desktop[5][7]=2;
-        desktop[5][11]=2;
-        desktop[5][12]=2;
-
-        desktop[6][0]=2;
-        desktop[6][3]=2;
-        desktop[6][4]=2;
-        desktop[6][5]=2;
-        desktop[6][7]=2;
-        desktop[6][8]=2;
-        desktop[6][9]=2;
-        desktop[6][10]=2;
-        desktop[6][11]=2;
-
-        desktop[7][3]=2;
-        desktop[7][7]=2;
-
-        desktop[8][6]=2;
-        desktop[8][7]=2;
-
-        desktop[9][5]=2;
-        desktop[9][7]=2;
-
-        desktop[10][3]=2;
-        desktop[10][4]=2;
-        desktop[10][7]=2;
-
-        desktop[11][7]=2;
-
-        desktop[12][7]=2;
-
-
-        desktop[1][11]=3;
-        desktop[5][2]=3;
-
-        desktop[5][3]=4;
-        desktop[5][5]=4;*/
-        //System.out.println("initArray");
-        //desktop[0][1]=2;
-        //desktop[7][6]=2;
-        //printArray();
-        //backup=desktop;
-
+    public void nextLvl(){
+        initLvl++;
+        initArray();
+        viewer.setSize();
+        viewer.update();
     }
 
     private void backup(byte action){
@@ -241,5 +174,9 @@ public class Model {
         }
         //System.out.println();
        // System.out.println("X - "+indexX+"    Y - "+indexY+"     wid"+desktop[0].length+" Hei"+desktop.length);
+    }
+
+    public Reset getMyButton(){
+        return buttonReset;
     }
 }

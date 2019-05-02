@@ -53,6 +53,8 @@ public class Controller implements KeyListener {
                 model.arrayInit();
                 direction = 0;
                 break;
+            default:
+                return;
         }
         //model.backup=model.desktop;
         //System.out.println(keyCode);
