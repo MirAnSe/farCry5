@@ -18,18 +18,10 @@ public class Model {
     Model(Viewer viewer){
         this.viewer = viewer;
 
-
         buttonReset = new Reset(0,0,150,100);
-        //indexXstart = 5;
-        //indexYstart = 1;
-
-
-/*
-        indexXbackup = indexX;
-        indexYbackup = indexY;
-*/
 
         initArray();
+        lvls.levelFromFile();
     }
 
     public void arrayInit(){
@@ -139,7 +131,7 @@ public class Model {
                 }
             }
         }
-        printArray();
+        //printArray();
     }
 
     public void nextLvl(){

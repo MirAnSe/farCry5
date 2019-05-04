@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class Lvls {
 
     //int map[][];
@@ -25,6 +29,9 @@ public class Lvls {
             case 4:
                 retLvl = level5();
                 break;
+            case 5:
+                //retLvl = levelFromFile();
+                break;
             default:
                 retLvl = level0();
         }
@@ -33,7 +40,6 @@ public class Lvls {
     }
 
     private int[][] level0(){
-
         int [][] map = new int[][]{
                 {0,0,0,0,0,0,0,0,0,0,2,0,0},
                 {0,0,0,0,0,0,0,0,0,0,2,3,0},
@@ -49,14 +55,10 @@ public class Lvls {
                 {0,0,0,0,0,0,0,2,0,0,0,0,0},
                 {0,0,0,0,0,0,0,2,0,0,0,0,0}
         };
-
         return map;
-
-
     }
 
     private int[][] level2(){
-
         int [][] map = new int[][]{
                 {0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -70,14 +72,10 @@ public class Lvls {
                 {0,0,0,0,2,0,0,0,0,0,0,2,2,2,0,0,2,2,2,2,2,2},
                 {0,0,0,0,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0}
         };
-
         return map;
-
-
     }
 
     private int[][] level3(){
-
         int [][] map = new int[][]{
                 {2,2,2,2,2,2,2,2,2,2,2,2,0,0},
                 {2,4,4,0,0,2,0,0,0,0,0,2,2,2},
@@ -90,14 +88,10 @@ public class Lvls {
                 {0,0,2,0,0,0,0,2,0,0,0,0,0,2},
                 {0,0,2,2,2,2,2,2,2,2,2,2,2,2}
         };
-
         return map;
-
-
     }
 
     private int[][] level4(){
-
         int [][] map = new int[][]{
                 {0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,0},
                 {0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,2,0},
@@ -110,14 +104,10 @@ public class Lvls {
                 {2,4,4,4,4,0,0,2,2,2,2,2,2,2,2,2,2},
                 {2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0}
         };
-
         return map;
-
-
     }
 
     private int[][] level5(){
-
         int [][] map = new int[][]{
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,4,4,4,4,2},
@@ -133,9 +123,31 @@ public class Lvls {
                 {2,0,0,0,2,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0},
                 {2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0}
         };
-
         return map;
+    }
 
+    public void levelFromFile(){
+        String arrayFromFile = readFromFile("src/maps/fraCryMap1.far5");
+        System.out.println(arrayFromFile);
+    }
 
+    private String readFromFile(String nameFile){
+        String outText = "";
+        File filename = new File(nameFile);
+        FileInputStream in = null;
+            try{
+                in = new FileInputStream(filename);
+                int c;
+                while ((c = in.read()) != -1){
+                    char symbol = (char) c;
+                    if ('0' <= symbol && symbol <= '9') {
+                        outText = outText + symbol;
+                    }
+                }
+                in.close();
+            }catch (IOException e){
+                System.out.println("Error load Map File");
+            }
+        return outText;
     }
 }
