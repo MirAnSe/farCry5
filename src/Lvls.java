@@ -6,6 +6,7 @@ public class Lvls {
 
     //int map[][];
     private int lvl;
+    //private int [][] dynamicArray;// = null;
 
     Lvls(){
         //this.lvl=0;
@@ -30,7 +31,7 @@ public class Lvls {
                 retLvl = level5();
                 break;
             case 5:
-                //retLvl = levelFromFile();
+                retLvl = readFromFile("src/maps/fraCryMap1.far5");
                 break;
             default:
                 retLvl = level0();
@@ -127,27 +128,77 @@ public class Lvls {
     }
 
     public void levelFromFile(){
-        String arrayFromFile = readFromFile("src/maps/fraCryMap1.far5");
-        System.out.println(arrayFromFile);
+        //String arrayFromFile = readFromFile("src/maps/fraCryMap1.far5");
+
+        //System.out.println(arrayFromFile);
     }
 
-    private String readFromFile(String nameFile){
+    private int [][] readFromFile(String nameFile){
         String outText = "";
         File filename = new File(nameFile);
         FileInputStream in = null;
-            try{
+        int row = 1;
+        int countColumn = 0;
+        int countRow = 0;
+        int outTextCount=0;
+            try{ // read file
                 in = new FileInputStream(filename);
                 int c;
                 while ((c = in.read()) != -1){
                     char symbol = (char) c;
-                    if ('0' <= symbol && symbol <= '9') {
+                    if ('0' <= symbol && symbol <= '9' || symbol == '\n') {
                         outText = outText + symbol;
+                        if (symbol == '\n'){
+                            row++; // column for initalize 1 way array dynamicArray
+                        }
                     }
                 }
+                //System.out.println(row);
                 in.close();
             }catch (IOException e){
                 System.out.println("Error load Map File");
             }
-        return outText;
+
+        int [][] dynamicArray = new int [row][];
+
+        for (int a=0;a<outText.length();a++){
+            char symbol = outText.charAt(a);
+            if (symbol == '\n'){
+                dynamicArray[countRow] = new int [countColumn];
+                //System.out.println("Row - "+countRow+", Column - "+countColumn);
+                countRow++;
+                countColumn=0;
+            }else{
+                countColumn++;
+            }
+            if (a==outText.length()-1){
+                dynamicArray[countRow] = new int [countColumn];
+                //System.out.println("Row - "+countRow+", Column - "+countColumn);
+            }
+        }
+
+        for (int i = 0; i < dynamicArray.length;i++){
+            for (int j = 0;j<dynamicArray[i].length;j++){
+                char symbol = outText.charAt(outTextCount);
+                if (symbol != '\n'){
+                    dynamicArray[i][j]=Integer.parseInt("" + symbol);
+                }
+                outTextCount++;
+            }
+            outTextCount++;
+        }
+
+        printArray(dynamicArray);
+            return dynamicArray;
     }
+
+    private void printArray(int [][] value){
+        for (int i = 0; i < value.length;i++){
+            for (int j = 0;j<value[i].length;j++){
+                System.out.print(value[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+
 }

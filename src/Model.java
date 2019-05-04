@@ -2,7 +2,7 @@ public class Model {
 
     private Viewer viewer;
     private Lvls lvls = new Lvls();
-    private int initLvl = 0;
+    private int initLvl = 5;
 
     private Reset buttonReset;
 
@@ -22,6 +22,7 @@ public class Model {
 
         initArray();
         lvls.levelFromFile();
+        //lvls.num('0');
     }
 
     public void arrayInit(){
