@@ -1,8 +1,7 @@
 public class Model {
 
     private Viewer viewer;
-    private Lvls lvls = new Lvls();
-    private int initLvl = 5;
+    private Lvls lvls = new Lvls(5);
 
     private Reset buttonReset;
 
@@ -21,7 +20,7 @@ public class Model {
         buttonReset = new Reset(0,0,150,100);
 
         initArray();
-        lvls.levelFromFile();
+        //lvls.levelFromFile();
         //lvls.num('0');
     }
 
@@ -119,7 +118,7 @@ public class Model {
 
     private void initArray(){
 
-        desktop=lvls.returnLvl(initLvl);
+        desktop=lvls.returnLvl();
         backup = new int[desktop.length][desktop[0].length];
 
         auca: for(int i=0;i < desktop.length;i++){
@@ -136,7 +135,7 @@ public class Model {
     }
 
     public void nextLvl(){
-        initLvl++;
+        //initLvl++;
         initArray();
         viewer.setSize();
         viewer.update();

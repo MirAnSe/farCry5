@@ -8,11 +8,11 @@ public class Lvls {
     private int lvl;
     //private int [][] dynamicArray;// = null;
 
-    Lvls(){
-        //this.lvl=0;
+    Lvls(int lvl){
+        this.lvl=lvl;
     }
 
-    public int[][] returnLvl(int lvl){
+    public int[][] returnLvl(){
         int [][] retLvl = null;
         switch (lvl){
             case 0:
@@ -35,8 +35,11 @@ public class Lvls {
                 break;
             default:
                 retLvl = level0();
+                lvl = 1;
+                break;
         }
 
+        lvl++;
         return retLvl;
     }
 
