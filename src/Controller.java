@@ -1,7 +1,10 @@
+import javax.swing.*;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Controller implements KeyListener {
+public class Controller implements KeyListener, ActionListener  {
     private Model model;
     int direction=0;
     Controller(Viewer viewer){
@@ -18,9 +21,6 @@ public class Controller implements KeyListener {
 
     public void keyPressed(KeyEvent event){
         int keyCode = event.getKeyCode();
-        //System.out.println(keyCode);
-
-
         switch (keyCode){
             case 38:
                 direction = 1;
@@ -46,7 +46,7 @@ public class Controller implements KeyListener {
             case 65:
                 direction = 4;
             break;
-            case 8:
+            case 66:
                 direction = 5;
                 break;
             case 82:
@@ -63,6 +63,36 @@ public class Controller implements KeyListener {
 
     public void keyReleased(KeyEvent event){
 
+    }
+    public void actionPerformed(ActionEvent event) {
+        String command = event.getActionCommand();
+        if(command.equals("MB")){
+            model.move(5);
+        }else if(command.equals("RL")){
+            model.arrayInit();
+            model.move(0);
+        }else if(command.equals("L1")){
+            model.initLvlFromMenu(1);
+        }else if(command.equals("L2")){
+            model.initLvlFromMenu(2);
+        }else if(command.equals("L3")){
+            model.initLvlFromMenu(3);
+        }else if(command.equals("L4")){
+            model.initLvlFromMenu(4);
+        }else if(command.equals("L5")){
+            model.initLvlFromMenu(5);
+        }else if(command.equals("Lfile")){
+            model.initLvlFromMenu(6);
+        }else if(command.equals("Lnetwork")){
+            JDialog networkFram = new JDialog(new JFrame("Network"));
+
+
+            networkFram.setSize(300,200);
+            networkFram.setLayout(null);
+            networkFram.setModal(true);
+            networkFram.setResizable(false);
+            networkFram.setVisible(true);
+        }
     }
 
 }

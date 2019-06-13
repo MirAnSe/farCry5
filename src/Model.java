@@ -5,7 +5,7 @@ public class Model {
 
     private Reset buttonReset;
 
-
+    private boolean firstStep=false;
     int [][] desktop;
     int [][] backup;
     int indexX,indexY,indexXbackup,indexYbackup;
@@ -19,19 +19,16 @@ public class Model {
 
         buttonReset = new Reset(0,0,150,100);
 
-        initArray();
-        //lvls.levelFromFile();
-        //lvls.num('0');
+        initArray(false);
     }
 
     public void arrayInit(){
-        initArray();
+        initArray(false);
     }
 
     public void move(int direction){
         if (direction!=5) {
             if (stopProgramm) {
-                backup((byte)1);
                 switch (direction) {
                     case 1:
                         move(indexX - 1, indexX - 2, indexY, indexY);
@@ -50,11 +47,13 @@ public class Model {
                 viewer.update();
             }
         }else if(direction==5){
-            backup((byte)0);
-            indexX=indexXbackup;
-            indexY=indexYbackup;
-            stopProgramm=true;
-            viewer.update();
+            if (firstStep){
+                backup((byte)0);
+                indexX=indexXbackup;
+                indexY=indexYbackup;
+                stopProgramm=true;
+                viewer.update();
+            }
 
         }else {
             //viewer.update();
@@ -62,19 +61,15 @@ public class Model {
     }
 
     private void move(int xx, int xx1, int yy, int yy1){
-      /*if (yy1 < desktop[indexX].length && xx1 < desktop.length && xx1 > -1 && yy1 > -1 && desktop[xx][yy] ==5){
-
-      }*/
-
-        indexXbackup = indexX;
-        indexYbackup = indexY;
-
+        //move BOX
       if (yy1 < desktop[indexX].length && xx1 < desktop.length && xx1 > -1 && yy1 > -1 && (desktop[xx][yy] ==3|| desktop[xx][yy]==5)){
+
             if(desktop[xx1][yy1]==0 && desktop[xx][yy]==3){
+                backup();
                 desktop[xx][yy]=0;
                 desktop[xx1][yy1]=3;
             }else if(desktop[xx1][yy1]==4){
-                //desktop[xx][yy]=0;
+                backup();
                 if (desktop[xx][yy]==5){
                     desktop[xx][yy]=4;
                 }else if(desktop[xx][yy]==3){
@@ -82,12 +77,15 @@ public class Model {
                 }
                 desktop[xx1][yy1]=5;
             }else if (desktop[xx1][yy1]==0 && desktop[xx][yy]==5){
+                backup();
                 desktop[xx][yy]=4;
                 desktop[xx1][yy1]=3;
             }
         }
 
+            //move Persone
         if (yy < desktop[indexX].length && xx < desktop.length && xx > -1 && yy > -1){
+
             if (desktop[xx][yy]==0){
                 if (desktop[indexX][indexY]==1){
                     desktop[indexX][indexY]=0;
@@ -108,18 +106,23 @@ public class Model {
                 indexY=yy;
                 indexX=xx;
             }
-            //if (desktop[indexX][indexY]==)
         }
-
-        //directionImage = dir;
-        //printArray();
-        //System.out.println(xx1+" - "+yy1+"   "+xx+" - "+yy);
+        firstStep=true;
     }
 
-    private void initArray(){
+    private void backup(){
+        indexXbackup = indexX;
+        indexYbackup = indexY;
+        backup((byte)1);
+    }
 
-        desktop=lvls.returnLvl();
-        backup = new int[desktop.length][desktop[0].length];
+    private void initArray(boolean next){
+        desktop=lvls.returnLvl(next);
+        backup = new int[desktop.length][];
+
+        for (int i=0;i<desktop.length;i++){
+            backup[i] = new int[desktop[i].length];
+        }
 
         auca: for(int i=0;i < desktop.length;i++){
             for(int j=0;j<desktop[i].length;j++){
@@ -131,12 +134,19 @@ public class Model {
                 }
             }
         }
-        //printArray();
+        firstStep=false;
     }
 
-    public void nextLvl(){
+    public void initLvlFromMenu(int level){
+        lvls.getLvl(level);
+        initArray(false);
+        viewer.setSize();
+        viewer.update();
+    }
+
+    public void nextLvl(boolean next){
         //initLvl++;
-        initArray();
+        initArray(next);
         viewer.setSize();
         viewer.update();
     }
@@ -158,9 +168,9 @@ public class Model {
     }
 
     private void printArray(){
-        for(int i=0; i< desktop.length;i++){
-            for(int j=0;j<desktop[i].length;j++){
-                System.out.print(desktop[i][j]+" ");
+        for(int i=0; i< backup.length;i++){
+            for(int j=0;j<backup[i].length;j++){
+                System.out.print(backup[i][j]+" ");
             }
             System.out.println();
         }

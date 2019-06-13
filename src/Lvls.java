@@ -12,38 +12,46 @@ public class Lvls {
         this.lvl=lvl;
     }
 
-    public int[][] returnLvl(){
+    public int[][] returnLvl(boolean next){
+
+        if (next){
+            lvl++;
+        }
+
         int [][] retLvl = null;
         switch (lvl){
-            case 0:
-                retLvl = level0();
-                break;
             case 1:
-                retLvl = level2();
+                retLvl = level1();
                 break;
             case 2:
-                retLvl = level3();
+                retLvl = level2();
                 break;
             case 3:
-                retLvl = level4();
+                retLvl = level3();
                 break;
             case 4:
-                retLvl = level5();
+                retLvl = level4();
                 break;
             case 5:
+                retLvl = level5();
+                break;
+            case 6:
                 retLvl = readFromFile("src/maps/fraCryMap1.far5");
                 break;
             default:
-                retLvl = level0();
+                retLvl = level1();
                 lvl = 1;
                 break;
         }
-
-        lvl++;
+        System.out.println("super INIT "+lvl);
         return retLvl;
     }
 
-    private int[][] level0(){
+    public void getLvl(int level){
+        lvl=level;
+    }
+
+    private int[][] level1(){
         int [][] map = new int[][]{
                 {0,0,0,0,0,0,0,0,0,0,2,0,0},
                 {0,0,0,0,0,0,0,0,0,0,2,3,0},
@@ -130,12 +138,6 @@ public class Lvls {
         return map;
     }
 
-    public void levelFromFile(){
-        //String arrayFromFile = readFromFile("src/maps/fraCryMap1.far5");
-
-        //System.out.println(arrayFromFile);
-    }
-
     private int [][] readFromFile(String nameFile){
         String outText = "";
         File filename = new File(nameFile);
@@ -191,7 +193,7 @@ public class Lvls {
             outTextCount++;
         }
 
-        printArray(dynamicArray);
+        //printArray(dynamicArray);
             return dynamicArray;
     }
 

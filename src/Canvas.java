@@ -123,7 +123,7 @@ public class Canvas extends JPanel{
         }
 
         if (win){
-            model.nextLvl();
+            model.nextLvl(true);
 
             //pen.setFont(new Font ("console", Font.PLAIN,30));
             //pen.setColor(Color.red);
