@@ -1,4 +1,8 @@
-import javax.swing.*;
+import javax.swing.JTextField;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JButton;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
@@ -6,9 +10,11 @@ import java.awt.event.ActionEvent;
 
 public class Controller implements KeyListener, ActionListener  {
     private Model model;
+    private TcpClient tcpClient;
     int direction=0;
     Controller(Viewer viewer){
         model = new Model(viewer);
+        tcpClient = new TcpClient();
     }
 
     public Model getModel(){
@@ -86,10 +92,46 @@ public class Controller implements KeyListener, ActionListener  {
         }else if(command.equals("Lnetwork")){
             JDialog networkFram = new JDialog(new JFrame("Network"));
 
+            JLabel jLabel1 = new JLabel("Для загрузки карты с сервера , перейдите");
+            jLabel1.setBounds(10,10,300,20);
+
+            JLabel jLabel2 = new JLabel("по ссылке sokoban.linux.kg, и вставьте");
+            jLabel2.setBounds(10,30,300,20);
+
+            JLabel jLabel3 = new JLabel("ID карты, в поле ниже.");
+            jLabel3.setBounds(10,50,300,20);
+
+            JTextField  textFiled = new JTextField();
+            textFiled.setBounds(10,80,50,20);
+
+            JButton downloadButton = new JButton("Download");
+            downloadButton.setBounds(65,80,100,20);
+            downloadButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    tcpClient.startTcpSession(textFiled.getText());
+                }
+            });
+
+            JButton close = new JButton("Close");
+            close.setBounds(70,120,150,30);
+            close.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    networkFram.dispose();
+                }
+            });
+
+            networkFram.setLayout(null);
+            networkFram.add(jLabel1);
+            networkFram.add(jLabel2);
+            networkFram.add(jLabel3);
+            networkFram.add(textFiled);
+            networkFram.add(downloadButton);
+            networkFram.add(close);
 
             networkFram.setSize(300,200);
-            networkFram.setLayout(null);
+
             networkFram.setModal(true);
+            networkFram.setLocationRelativeTo(null);
             networkFram.setResizable(false);
             networkFram.setVisible(true);
         }

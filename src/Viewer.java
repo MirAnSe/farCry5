@@ -91,7 +91,7 @@ public class Viewer {
 
         frame.setJMenuBar(jMenuBar);
         frame.add("Center",canvas);
-
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.addKeyListener(controller);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
